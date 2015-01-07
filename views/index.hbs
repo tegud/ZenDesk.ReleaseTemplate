@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Zen Desk Release Template PoC</title>
+    <meta name="viewport" content="user-scalable=no, width=device-width"/>
+
+    <link href="/static/css/site.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css"/>
+
+</head>
+<body>
+
+	<h1>ZenDesk Release PoC</h1>
+
+	<form method="post">
+	<div>
+		<label>
+			Release For: 
+			<select name="product-type">
+				<option value="">Select product...</option>
+				<option>LateRooms Web</option>
+				<option>Moonstick</option>
+				<option>Search</option>
+			</select>
+		</label>
+	</div>	
+
+	<div>
+		<label>
+			Submitter ZenDesk User: 
+			<select name="submitting-user">
+				<option value="">Select user...</option>
+				<option>Steve Elliott</option>
+				<option>Joseph Ryan</option>
+				<option>Paul Touhey</option>
+				<option>Jason Young</option>
+			</select>
+		</label>
+	</div>	
+
+	<div>
+		<label>
+			Release Name: 
+			<input type="text" name="title" />
+		</label>
+	</div>	
+
+	<div>
+		<label>
+			Description:<br/> 
+			<textarea name="description" rows="10" cols="70"></textarea>
+		</label>
+	</div>
+
+	<div>
+		<label>
+			Start: 
+			<input type="text" name="start" />
+		</label>
+	</div>	
+
+	<div>
+		<label>
+			End: 
+			<input type="text" name="end" />
+		</label>
+	</div>	
+
+	<button type="submit">Submit Release</button>
+	</form>
+
+<!-- build:js /static/js/app.js -->
+<script type="text/javascript" src="/static/js/lib/lodash.js"></script>
+<script type="text/javascript" src="/static/js/lib/mustache.js"></script>
+<script type="text/javascript" src="/static/js/lib/moment.js"></script>
+<script type="text/javascript" src="/static/js/lib/jquery-2.0.0.js"></script>
+<script type="text/javascript" src="/static/js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="/static/js/lib/TLRGRP.core.js"></script>
+<script type="text/javascript" src="/static/js/lib/nanomachine.js"></script>
+<!-- endbuild  -->
+
+</body>
+</html>
