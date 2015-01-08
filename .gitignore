@@ -24,7 +24,7 @@ build/Release
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
 node_modules
 
-templates
+templates.json
 credentials.json
 
 # Users Environment Variables

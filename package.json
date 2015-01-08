@@ -21,13 +21,15 @@
   "homepage": "https://github.com/tegud/ZenDesk.ReleaseTemplate",
   "dependencies": {
     "async": "^0.9.0",
+    "bluebird": "~2.3.11",
     "express": "^4.4.3",
     "hbs": "^2.7.0",
     "lodash": "^2.4.1",
+    "moment": "~2.8.4",
     "node-uuid": "^1.4.1",
+    "node-zendesk": "0.0.18",
     "request": "~2.51.0",
-    "bluebird": "~2.3.11",
-    "moment": "~2.8.4"
+    "zendesk": "0.0.5"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

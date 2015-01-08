@@ -6,6 +6,7 @@ var async = require('async');
 var _ = require('lodash');
 var moment = require('moment');
 var Promise = require('bluebird');
+var zendesk = require('node-zendesk');
 
 var AppServer = require('./lib/AppServer');
 
@@ -27,9 +28,35 @@ var server = function() {
     });
 
     app.post('/', function(req, res, next) {
-        
-        
-        res.render('done.hbs');
+        var client = zendesk.createClient({
+            username:  credentials.apiUser,
+            token:     credentials.apiToken,
+            remoteUri: 'https://' + credentials.subDomain + '.zendesk.com/api/v2'
+        });
+
+        client.tickets.create({
+            "ticket": { 
+                "subject":"TEST AUTOMATION RFC", 
+                "comment": { 
+                    "body": "This is a test RFC"
+                },
+                "metadata": {
+                    "app": "myndbend_change_manager",
+                    "action": "approver_added",
+                    "approver_ids": [
+                        "648535672"
+                    ]
+                }
+            } 
+        }, function (err, statusList, body, responseList, resultList) {
+            if (err) {
+                console.log(err);
+                console.log(body);
+                return;
+            }
+
+            fs.writeFileSync(__dirname + '/ticketOutput.json', JSON.stringify(body, null, 2, true), 'utf-8');
+        });
     });
 
     return {
