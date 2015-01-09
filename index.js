@@ -16,7 +16,9 @@ var server = function() {
     var sync;
     var applicationRoot = __dirname + (process.env.NODE_ENV === 'dev' ? '/' : '/dist/');
     var credentials;
+    var templates;
     var schedules;
+    var zenDeskUsers;
 
     app.set('view engine', 'html');
     app.set('views', applicationRoot + 'views');
@@ -24,7 +26,11 @@ var server = function() {
     app.use("/static", express.static(applicationRoot + 'static'));
 
     app.get('/', function(req, res, next) {
-        res.render('index.hbs');
+        var viewModel = {
+
+        };
+
+        res.render('index.hbs', viewModel);
     });
 
     app.post('/', function(req, res, next) {
@@ -59,6 +65,24 @@ var server = function() {
         });
     });
 
+    function getUsers(callback) {
+        var client = zendesk.createClient({
+            username:  credentials.apiUser,
+            token:     credentials.apiToken,
+            remoteUri: 'https://' + credentials.subDomain + '.zendesk.com/api/v2'
+        });
+
+        client.users.list(function(err, req, result) {
+            var users = _.reduce(result, function(memo, user) {
+                memo[user.name] = user.id;
+
+                return memo;
+            }, {});
+
+            callback(null, users);
+        });
+    }
+
     return {
         start: function(options, callback) {
             console.log('Starting...');
@@ -68,10 +92,18 @@ var server = function() {
             async.waterfall([
                     async.apply(async.parallel, [
                         async.apply(fs.readFile, __dirname + '/credentials.json', 'utf-8'),
+                        async.apply(fs.readFile, __dirname + '/templates.json', 'utf-8')
                     ]),
                     function(results, callback) {
                         console.log('Loaded credentials...');
                         credentials = JSON.parse(results[0]);
+                        templates = JSON.parse(results[1]);
+
+                        callback();
+                    },
+                    getUsers,
+                    function(users, callback) {
+                        zenDeskUsers = users;
 
                         callback();
                     },
