@@ -27,7 +27,9 @@ var server = function() {
 
     app.get('/', function(req, res, next) {
         var viewModel = {
-
+            templates: _.map(templates, function(template, key) {
+                return { name: key };
+            })
         };
 
         res.render('index.hbs', viewModel);

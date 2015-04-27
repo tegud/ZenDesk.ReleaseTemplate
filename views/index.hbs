@@ -17,12 +17,12 @@
 	<form method="post">
 	<div>
 		<label>
-			Release For: 
-			<select name="product-type">
+			Template: 
+			<select name="template">
 				<option value="">Select product...</option>
-				<option>LateRooms Web</option>
-				<option>Moonstick</option>
-				<option>Search</option>
+				{{#templates}}
+					<option value="{{name}}">{{name}}</option>
+				{{/templates}}
 			</select>
 		</label>
 	</div>	
